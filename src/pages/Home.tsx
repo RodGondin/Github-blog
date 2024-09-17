@@ -1,9 +1,10 @@
 import { ArrowSquareOut, Building, GithubLogo, Users } from "@phosphor-icons/react"
 import { Header } from "../components/Header"
-import { MainDiv, ProfileSection, FirstInfosDiv, DescriptionProfileParagraph, LastInfosDiv, InfosDivProfile, SearchDiv, PublicationsSpan, CountablePublicationSpan, SearchInput, IssuesMainGrid } from "./styles"
+import { MainDiv, ProfileSection, FirstInfosDiv, DescriptionProfileParagraph, LastInfosDiv, InfosDivProfile, IssuesMainGrid } from "./styles"
 import { IssueCard } from "./components/IssueCard"
 import { useContext } from "react";
 import { IssuesContext } from "../contexts/IssuesContext";
+import { SearchInput } from "./components/SearchInput";
 
 
 export function Home() {
@@ -13,7 +14,8 @@ export function Home() {
     throw new Error('context not initialized');
   }
 
-  const { userInfos } = context;
+  const { userInfos, issueInfos } = context;
+  const issues = issueInfos?.items;
 
   if (!userInfos) {
     return <div>Loading...</div>;
@@ -51,19 +53,16 @@ export function Home() {
           </InfosDivProfile>
         </ProfileSection>
 
-        <SearchDiv>
-          <div>
-            <PublicationsSpan>Publicações</PublicationsSpan>
-            <CountablePublicationSpan>6 publicações</CountablePublicationSpan>
-          </div>
-          <SearchInput type="text" placeholder="Buscar conteúdo" />
-        </SearchDiv>
+        <SearchInput />
 
         <IssuesMainGrid>
-          <IssueCard />
-          <IssueCard />
-          <IssueCard />
-          <IssueCard />
+
+          {issues ? issues.map((issue) => {
+            return (
+              <IssueCard key={issue.id} id={issue.id} />
+            )
+          }) : null}
+
         </IssuesMainGrid>
 
       </MainDiv>

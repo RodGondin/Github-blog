@@ -19,7 +19,7 @@ export const IssueCardContainer = styled.div`
     span:first-child {
       font-weight: 600;
       color: ${props => props.theme['base-title']};
-      max-width: 65%;
+      max-width: 75%;
     }
 
     span:not(:first-child) {

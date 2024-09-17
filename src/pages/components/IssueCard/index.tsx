@@ -1,15 +1,38 @@
-import { IssueCardContainer } from "./styles"
+import { useContext } from "react";
+import { IssueCardContainer } from "./styles";
+import { IssuesContext, IssuesContextType } from "../../../contexts/IssuesContext";
 
-export function IssueCard() {
+export interface IssueCardType {
+  id: number;
+  body: string;
+  title: string;
+  created_at: string;
+  url: string;
+  comments: number;
+}
+
+export function IssueCard({ id }: { id: number }) {
+  const context = useContext<IssuesContextType | undefined>(IssuesContext);
+
+  if (!context || !context.issueInfos) {
+    throw new Error('IssuesContext not initialized or no issues available');
+  }
+
+  const { issueInfos } = context;
+
+  const issue = issueInfos.items.find((issue: IssueCardType) => issue.id === id);
+
+  if (!issue) {
+    return <div>Issue não encontrada</div>;
+  }
+
   return (
     <IssueCardContainer>
       <div>
-        <span>JavaScript data types and data structures</span>
-        <span>Há 1 dia</span>
+        <span>{issue.title}</span>
+        <span>{new Date(issue.created_at).toLocaleDateString()}</span>
       </div>
-      <p>
-        Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn.
-      </p>
-    </IssueCardContainer >
+      <p>{issue.body}</p>
+    </IssueCardContainer>
   );
 }
