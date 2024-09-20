@@ -1,6 +1,6 @@
 # GitHub Blog
 
-Este projeto é um desafio proposto pela @Rocketseat, a aplicação de blog que consome dados da API do GitHub, exibindo informações de perfil do usuário, issues de repositórios e permitindo a navegação entre as issues detalhadas. A interface é estilizada para uma aparência moderna e responsiva, com uma navegação suave entre as páginas.
+Este projeto é um desafio proposto pela @Rocketseat, a aplicação é um blog que consome dados da API do GitHub, exibindo informações de perfil do usuário, issues de repositórios e permitindo a navegação entre as issues detalhadas. A interface é estilizada para uma aparência moderna e responsiva, com uma navegação suave entre as páginas.
 
 ---
 
