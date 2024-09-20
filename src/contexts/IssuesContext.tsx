@@ -4,10 +4,17 @@ import { api } from "../lib/axios";
 export interface IssuesContextType {
   userInfos: UserProfile | null;
   issueInfos: IssueType | null;
+  fetchIssues: (
+    query: string | null,
+    user: string,
+    repo: string
+  ) => Promise<void>;
 }
 
 interface IssueItem {
+  html_url: string | undefined;
   id: number;
+  number: number;
   title: string;
   body: string;
   url: string;
@@ -65,7 +72,11 @@ export function IssuesProvider({ children }: IssuesProviderProps) {
 
   async function fetchIssues(query: string | null, user: string, repo: string) {
     try {
-      const response = await api.get(`/search/issues?q=${query}%20repo:${user}/${repo}`);
+      const response = await api.get('/search/issues', {
+        params: {
+          q: `${query} repo:${user}/${repo}`,
+        },
+      });
       setIssueInfos(response.data);
     } catch (error) {
       console.error('Error fetching issues:', error);
@@ -76,9 +87,8 @@ export function IssuesProvider({ children }: IssuesProviderProps) {
     fetchUsers('RodGondin');
     fetchIssues('', 'RodGondin', 'Github-blog');
   }, []);
-
   return (
-    <IssuesContext.Provider value={{ userInfos, issueInfos }}>
+    <IssuesContext.Provider value={{ userInfos, issueInfos, fetchIssues }}>
       {children}
     </IssuesContext.Provider>
   );

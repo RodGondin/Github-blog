@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const MainDiv = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   padding: 0 18rem;
 `;
 
 export const ProfileSection = styled.section`
   position: relative;
   width: 100%;
-  min-height: 212px;
+  min-height: 168px;
   padding: 2rem 2rem;
   margin-top: -100px;
   border-radius: 10px;
@@ -30,6 +30,7 @@ export const InfosDivProfile = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
 `;
 
 export const FirstInfosDiv = styled.div`
@@ -38,11 +39,6 @@ export const FirstInfosDiv = styled.div`
   align-items: center;
   margin-top: 4px;
   margin-bottom: 8px;
-
-  p {
-    color: ${props => props.theme['base-title']};
-    font-size: 1.5rem;
-  }
 
   div {
     display: flex;
@@ -62,9 +58,17 @@ export const FirstInfosDiv = styled.div`
   }
 `;
 
-export const DescriptionProfileParagraph = styled.div`
-  margin-bottom: 24px;
-  font-size: 0.875rem;
+export const TitleInfoDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  margin-bottom: 8px;
+
+  p {
+    color: ${props => props.theme['base-title']};
+    font-size: 1.5rem;
+  }
 `;
 
 export const LastInfosDiv = styled.div`
@@ -79,9 +83,9 @@ export const LastInfosDiv = styled.div`
   }
 `;
 
-export const IssuesMainGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(390px, 1fr));
+export const IssueDescriptionDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 40px 32px;
   gap: 2rem;
-  margin-bottom: 2rem;
 `;

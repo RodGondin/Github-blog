@@ -1,10 +1,14 @@
 import styled from "styled-components";
 
+export const NavigateButton = styled.button`
+   display: contents;
+`;
+
 export const IssueCardContainer = styled.div`
-  background-color: ${props => props.theme['base-post']}; /* Cor de fundo do card */
+  background-color: ${props => props.theme['base-post']};
   color: ${props => props.theme['base-text']};
   border-radius: 10px;
-  padding: 2rem;
+  padding: 1.5rem 1.25rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border: 2px solid transparent;
   cursor: pointer;
@@ -20,6 +24,7 @@ export const IssueCardContainer = styled.div`
       font-weight: 600;
       color: ${props => props.theme['base-title']};
       max-width: 75%;
+      text-align: left;
     }
 
     span:not(:first-child) {
@@ -30,6 +35,7 @@ export const IssueCardContainer = styled.div`
   }
 
   p {
+    text-align: left;
     overflow: hidden;
     display: -webkit-box;      /* Define como um container flexível */
     -webkit-line-clamp: 4;     /* Limita a exibição a 4 linhas */

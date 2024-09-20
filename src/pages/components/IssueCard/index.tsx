@@ -1,6 +1,9 @@
 import { useContext } from "react";
-import { IssueCardContainer } from "./styles";
+import { IssueCardContainer, NavigateButton } from "./styles";
 import { IssuesContext, IssuesContextType } from "../../../contexts/IssuesContext";
+import { useNavigate } from "react-router-dom";
+import { formatDistanceToNow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export interface IssueCardType {
   id: number;
@@ -13,6 +16,7 @@ export interface IssueCardType {
 
 export function IssueCard({ id }: { id: number }) {
   const context = useContext<IssuesContextType | undefined>(IssuesContext);
+  const navigate = useNavigate();
 
   if (!context || !context.issueInfos) {
     throw new Error('IssuesContext not initialized or no issues available');
@@ -26,13 +30,26 @@ export function IssueCard({ id }: { id: number }) {
     return <div>Issue não encontrada</div>;
   }
 
+  function goToIssuePage(issueId: number) {
+    navigate(`/issue/${issueId}`);
+  }
+
+  function formatDate(dateString: string) {
+    const date = new Date(dateString);
+    return formatDistanceToNow(date, { addSuffix: true, locale: ptBR }); // 'há x dias'
+  }
+
+  const formattedDate = formatDate(issue.created_at);
+
   return (
-    <IssueCardContainer>
-      <div>
-        <span>{issue.title}</span>
-        <span>{new Date(issue.created_at).toLocaleDateString()}</span>
-      </div>
-      <p>{issue.body}</p>
-    </IssueCardContainer>
+    <NavigateButton onClick={() => goToIssuePage(issue.number)}>
+      <IssueCardContainer>
+        <div>
+          <span>{issue.title}</span>
+          <span>{formattedDate}</span>
+        </div>
+        <p>{issue.body}</p>
+      </IssueCardContainer>
+    </NavigateButton>
   );
 }

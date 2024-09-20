@@ -1,11 +1,10 @@
 import { ArrowSquareOut, Building, GithubLogo, Users } from "@phosphor-icons/react"
-import { Header } from "../components/Header"
+import { Header } from "../../components/Header"
 import { MainDiv, ProfileSection, FirstInfosDiv, DescriptionProfileParagraph, LastInfosDiv, InfosDivProfile, IssuesMainGrid } from "./styles"
-import { IssueCard } from "./components/IssueCard"
+import { IssueCard } from "../components/IssueCard"
 import { useContext } from "react";
-import { IssuesContext } from "../contexts/IssuesContext";
-import { SearchInput } from "./components/SearchInput";
-
+import { IssuesContext } from "../../contexts/IssuesContext";
+import { SearchInput } from "../components/SearchInput";
 
 export function Home() {
   const context = useContext(IssuesContext);
@@ -38,15 +37,15 @@ export function Home() {
             <DescriptionProfileParagraph>{userInfos.bio}</DescriptionProfileParagraph>
             <LastInfosDiv>
               <div>
-                <GithubLogo size={14} />
+                <GithubLogo size={16} weight="fill" />
                 <span>{userInfos.login}</span>
               </div>
               <div>
-                <Building size={14} />
+                <Building size={16} weight="fill" />
                 <span>{userInfos.company}</span>
               </div>
               <div>
-                <Users size={14} />
+                <Users size={18} weight="fill" />
                 <span>{userInfos.followers} seguidores</span>
               </div>
             </LastInfosDiv>

@@ -1,21 +1,27 @@
-import { useContext } from "react";
-import { SearchDiv, PublicationsSpan, CountablePublicationSpan, SearchIssueInput, } from "./styles"
+import { useContext, useEffect } from "react";
+import { SearchDiv, PublicationsSpan, CountablePublicationSpan, SearchIssueInput } from "./styles";
 import { IssuesContext, IssuesContextType } from "../../../contexts/IssuesContext";
+import { useForm } from "react-hook-form";
 
 export function SearchInput() {
   const context = useContext<IssuesContextType | undefined>(IssuesContext);
+  const { register, watch } = useForm();
 
   if (!context) {
     throw new Error('IssuesContext not initialized');
   }
 
-  const { issueInfos } = context;
+  const { issueInfos, fetchIssues } = context;
+
+  const searchInputValue = watch('issueSearch');
+
+  useEffect(() => {
+    fetchIssues(searchInputValue, 'RodGondin', 'Github-blog');
+  }, [searchInputValue]);
 
   if (!issueInfos) {
     return <div>Carregando...</div>;
   }
-
-  console.log(issueInfos)
 
   return (
     <SearchDiv>
@@ -23,7 +29,12 @@ export function SearchInput() {
         <PublicationsSpan>Publicações</PublicationsSpan>
         <CountablePublicationSpan>{issueInfos.total_count} publicações</CountablePublicationSpan>
       </div>
-      <SearchIssueInput type="text" placeholder="Buscar conteúdo" />
+      <SearchIssueInput
+        id="issueSearch"
+        type="text"
+        placeholder="Buscar conteúdo"
+        {...register('issueSearch')}
+      />
     </SearchDiv>
   );
 }
